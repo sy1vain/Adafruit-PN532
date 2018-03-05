@@ -195,7 +195,7 @@ class Adafruit_PN532{
   static void PrintHex(const byte * data, const uint32_t numBytes);
   static void PrintHexChar(const byte * pbtData, const uint32_t numBytes);
 
- private:
+ protected:
   uint8_t _ss, _clk, _mosi, _miso;
   uint8_t _irq, _reset;
   uint8_t _uid[7];       // ISO14443A uid
