@@ -187,7 +187,8 @@ Adafruit_PN532::Adafruit_PN532(uint8_t ss):
     @brief  Setups the HW
 */
 /**************************************************************************/
-void Adafruit_PN532::begin() {
+bool Adafruit_PN532::begin() {
+  bool success = true;
   if (_usingSPI) {
     // SPI initialization
     if (_hardwareSPI) {
@@ -205,9 +206,10 @@ void Adafruit_PN532::begin() {
 
     delay(1000);
 
+
     // not exactly sure why but we have to send a dummy command to get synced up
     pn532_packetbuffer[0] = PN532_COMMAND_GETFIRMWAREVERSION;
-    sendCommandCheckAck(pn532_packetbuffer, 1);
+    success = sendCommandCheckAck(pn532_packetbuffer, 1);
 
     // ignore response!
 
@@ -228,6 +230,7 @@ void Adafruit_PN532::begin() {
     delay(10);  // Small delay required before taking other actions after reset.
                 // See timing diagram on page 209 of the datasheet, section 12.23.
   }
+  return success;
 }
 
 /**************************************************************************/
